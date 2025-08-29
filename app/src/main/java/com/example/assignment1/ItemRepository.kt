@@ -1,5 +1,5 @@
 /* Object File: ItemRepository.kt
-*       - Repository of Catalog Items
+*       - Hard-coded list of CatalogItem objects
 *
 *  Date created: 29/08/2025
 *  Last modified: 29/08/2025 */
