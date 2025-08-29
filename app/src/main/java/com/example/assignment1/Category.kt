@@ -1,6 +1,5 @@
 /* Enumeration class: Category
-*       - Defines a finite set of constants
-*         (Category Names - Cuisines)
+*       - Enum of categories (Vietnamese, Italian, etc.) with display labels.
 *
 *  Date created: 29/08/2025
 *  Last modified: 29/08/2025 */
