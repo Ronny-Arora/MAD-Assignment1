@@ -1,4 +1,7 @@
 /* Data model class: (CatalogItem)
+    - Defines the data model for one catalog entry
+    - (title, description, category, image name).
+
 *  Date created: 29/08/2025
 *  Last modified: 29/08/2025 */
 
