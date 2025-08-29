@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-    item_catalog_list.xml
-    - Layout of catalog in Grid
+    item_catalog_grid.xml
+    - UI layout for one card when displayed in grid mode
+    - (Image on top, text below).
+
+    Date created: 29/08/2025
+    Last modified: 29/08/2025
 -->
 
 <androidx.constraintlayout.widget.ConstraintLayout
