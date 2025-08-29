@@ -1,6 +1,9 @@
 /* Enumeration class: Category
 *       - Defines a finite set of constants
-*         (Category Names - Cuisines)  */
+*         (Category Names - Cuisines)
+*
+*  Date created: 29/08/2025
+*  Last modified: 29/08/2025 */
 
 package com.example.assignment1
 
