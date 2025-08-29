@@ -1,5 +1,6 @@
 /* Class File: CatalogAdapter.kt
-*       - RecyclerView Adapter (grid/list with toggle)
+*       - RecyclerView adapter that displays items in either grid or list format
+*       - Handles item clicks
 *
 *  Date created: 29/08/2025
 *  Last modified: 29/08/2025 */
@@ -42,8 +43,8 @@ class CatalogAdapter(
             RecyclerView.ViewHolder(itemView) {
             private val iv: ImageView = itemView.findViewById(R.id.iv)
             private val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
-            private val tvDesc: TextView = itemView.findViewByID(R.id.tvDesc)
-            private val chip: TextView = itemView.findViewById(r.id.chipCategory)
+            private val tvDesc: TextView = itemView.findViewById(R.id.tvDesc)
+            private val chip: TextView = itemView.findViewById(R.id.chipCategory)
 
         fun bind(item: CatalogItem) {
             tvTitle.text = item.title
