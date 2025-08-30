@@ -10,6 +10,7 @@ package com.example.assignment1
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -33,8 +34,16 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     // References to UI widgets
     private lateinit var rv: RecyclerView
-    private lateinit var chipGroup: ChipGroup
     private lateinit var switchLayout: MaterialSwitch
+
+    // Category buttons
+    private lateinit var btnAll: Button
+    private lateinit var btnVietnamese: Button
+    private lateinit var btnItalian: Button
+    private lateinit var btnJapanese: Button
+    private lateinit var btnChinese: Button
+    private lateinit var btnThai: Button
+    private lateinit var btnIndian: Button
 
     // RecyclerView adapter (shows catalog items)
     private val adapter = CatalogAdapter(
@@ -50,13 +59,27 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
         // Find views from XML layout
         rv = view.findViewById(R.id.rv)
-        chipGroup = view.findViewById(R.id.chipsCategories)
         switchLayout = view.findViewById(R.id.switchLayout)
 
-        // Build category chips dynamically (Vietnamese, Italian, etc.) - single select.
-        setupChips()
+        // find Buttons
+        btnAll = view.findViewById(R.id.btnAll)
+        btnVietnamese = view.findViewById(R.id.btnVietnamese)
+        btnItalian = view.findViewById(R.id.btnItalian)
+        btnJapanese = view.findViewById(R.id.btnJapanese)
+        btnChinese = view.findViewById(R.id.btnChinese)
+        btnThai = view.findViewById(R.id.btnThai)
+        btnIndian = view.findViewById(R.id.btnIndian)
 
-        // RecyclerView + layout mode
+        // Hook up button clicks to update ViewModel filter
+        btnAll.setOnClickListener { vm.setCategory(null) }
+        btnVietnamese.setOnClickListener { vm.setCategory(Category.VIETNAMESE) }
+        btnItalian.setOnClickListener { vm.setCategory(Category.ITALIAN) }
+        btnJapanese.setOnClickListener {vm.setCategory(Category.JAPANESE) }
+        btnChinese.setOnClickListener { vm.setCategory(Category.CHINESE) }
+        btnThai.setOnClickListener { vm.setCategory(Category.THAI) }
+        btnIndian.setOnClickListener { vm.setCategory(Category.INDIAN) }
+
+        // Set up RecyclerView
         rv.adapter = adapter
         bindLayoutManager(isGrid = true)    // Start in Grid layout
 
@@ -65,7 +88,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             vm.toggleLayout()   // State drives the actual binding below
         }
 
-        // Collect state flows from ViewModel
+        // Collect state from ViewModel
         viewLifecycleOwner.lifecycleScope.launch {
             // repeatOnLifecycle = only collect when fragment visible/started
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -93,46 +116,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         }
     }
 
-    // Dynamically create category chips for each cuisine
-    private fun setupChips() {
-        chipGroup.isSingleSelection = true  // only 1 chip active at a time
-        chipGroup.clearCheck()  // start with none selected
-
-        // Helper function to make one chip
-        fun makeChip(label: String, category: Category): Chip {
-            val c = Chip(requireContext()).apply {
-                text = label
-                isCheckable = true
-                // When user clicks chip -> update ViewModel category filter
-                setOnClickListener {
-                    vm.setCategory(if (isChecked) category else null)
-                }
-            }
-            return c
-        }
-
-        // Add one chip per category
-        chipGroup.addView(makeChip(Category.VIETNAMESE.displayName, Category.VIETNAMESE))
-        chipGroup.addView(makeChip(Category.ITALIAN.displayName, Category.ITALIAN))
-        chipGroup.addView(makeChip(Category.JAPANESE.displayName, Category.JAPANESE))
-        chipGroup.addView(makeChip(Category.CHINESE.displayName, Category.CHINESE))
-        chipGroup.addView(makeChip(Category.THAI.displayName, Category.THAI))
-        chipGroup.addView(makeChip(Category.INDIAN.displayName, Category.INDIAN))
-
-        // Option "All" reset chip (resets the filter)
-        val reset = Chip(requireContext()).apply {
-            text = getString(R.string.all_categories)
-            isCheckable = true
-            setOnClickListener {
-                chipGroup.clearCheck()
-                vm.setCategory(null)    // Show all items again
-            }
-        }
-        // Add a reset chip at the start
-        chipGroup.addView(reset, 0)
-    }
-
-    // Choose the correct LayoutManager for RecyclerView (Grid vs List)
+    // Helper to switch between GridLayoutManager and LinearLayoutManager
     private fun bindLayoutManager(isGrid: Boolean) {
         if (!isGrid) {
             // LinearLayoutManager -> vertical list
