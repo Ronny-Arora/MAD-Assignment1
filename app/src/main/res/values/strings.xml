@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Assignment1</string>
     <string name="cd_item_image">Item image</string>
+    <string name="title_catalog">Restaurants in Perth</string>
+    <string name="switch_grid">Grid</string>
+    <string name="all_categories">All</string>
 </resources>
