@@ -3,7 +3,7 @@
 <!--
     fragment_list.xml
     - Layout for the list screen:
-    - Header with toggle, horizontal row of Buttons, and RecyclerView.
+    - Header with toggle, horizontal row of styled MaterialButtons, and RecyclerView.
 
     Date created: 30/08/2025
     Last modified: 30/08/2025
@@ -43,7 +43,7 @@
             android:checked="true"/>
     </LinearLayout>
 
-    <!-- Category buttons -->
+    <!-- Category buttons (styled MaterialButtons) -->
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,51 +58,58 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAll"
+                style="@style/Widget.Catalog.FilterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/all_categories"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnVietnamese"
+                style="@style/Widget.Catalog.FilterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Vietnamese"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnItalian"
+                style="@style/Widget.Catalog.FilterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Italian"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnJapanese"
+                style="@style/Widget.Catalog.FilterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Japanese"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnChinese"
+                style="@style/Widget.Catalog.FilterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Chinese"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnThai"
+                style="@style/Widget.Catalog.FilterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thai"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnIndian"
+                style="@style/Widget.Catalog.FilterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Indian"/>
         </LinearLayout>
     </HorizontalScrollView>
 
-    <!-- List/Grid -->
+    <!-- RecyclerView: list or grid depending on toggle -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
