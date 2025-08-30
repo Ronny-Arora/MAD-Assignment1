@@ -3,7 +3,7 @@
 <!--
     fragment_list.xml
     - Layout for the list screen:
-    - Header with toggle, category chip row, and RecyclerView.
+    - Header with toggle, horizontal row of Buttons, and RecyclerView.
 
     Date created: 30/08/2025
     Last modified: 30/08/2025
@@ -43,23 +43,63 @@
             android:checked="true"/>
     </LinearLayout>
 
-    <!-- Category chips (single select) -->
+    <!-- Category buttons -->
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fillViewport="false"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         android:paddingBottom="8dp">
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipsCategories"
+        <LinearLayout
+            android:id="@+id/layoutButtons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:singleSelection="true"
-            app:selectionRequired="false"
-            app:chipSpacingHorizontal="8dp"
-            app:chipSpacingVertical="8dp"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/btnAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/all_categories"/>
+
+            <Button
+                android:id="@+id/btnVietnamese"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vietnamese"/>
+
+            <Button
+                android:id="@+id/btnItalian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Italian"/>
+
+            <Button
+                android:id="@+id/btnJapanese"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Japanese"/>
+
+            <Button
+                android:id="@+id/Chinese"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chinese"/>
+
+            <Button
+                android:id="@+id/btnThai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thai"/>
+
+            <Button
+                android:id="@+id/btnIndian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Indian"/>
+        </LinearLayout>
     </HorizontalScrollView>
 
     <!-- List/Grid -->
