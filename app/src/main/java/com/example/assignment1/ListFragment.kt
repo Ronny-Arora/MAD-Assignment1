@@ -1,5 +1,5 @@
 /* Class File: ListFragment.kt
-*       - UI screen that shows catalog list, chips for categories,
+*       - UI screen that shows catalog list, MaterialButtons for categories,
 *       - and the toggle between grid and list.
 *
 *  Date created: 30/08/2025
@@ -21,8 +21,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.materialswitch.MaterialSwitch
 import kotlinx.coroutines.launch
 
@@ -37,13 +36,13 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     private lateinit var switchLayout: MaterialSwitch
 
     // Category buttons
-    private lateinit var btnAll: Button
-    private lateinit var btnVietnamese: Button
-    private lateinit var btnItalian: Button
-    private lateinit var btnJapanese: Button
-    private lateinit var btnChinese: Button
-    private lateinit var btnThai: Button
-    private lateinit var btnIndian: Button
+    private lateinit var btnAll: MaterialButton
+    private lateinit var btnVietnamese: MaterialButton
+    private lateinit var btnItalian: MaterialButton
+    private lateinit var btnJapanese: MaterialButton
+    private lateinit var btnChinese: MaterialButton
+    private lateinit var btnThai: MaterialButton
+    private lateinit var btnIndian: MaterialButton
 
     // RecyclerView adapter (shows catalog items)
     private val adapter = CatalogAdapter(
@@ -70,6 +69,9 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         btnThai = view.findViewById(R.id.btnThai)
         btnIndian = view.findViewById(R.id.btnIndian)
 
+        // Make buttons toggleable to show a "selected" state
+        makeCheckable(btnAll, btnVietnamese, btnIndian, btnJapanese, btnChinese, btnThai, btnIndian)
+
         // Hook up button clicks to update ViewModel filter
         btnAll.setOnClickListener { vm.setCategory(null) }
         btnVietnamese.setOnClickListener { vm.setCategory(Category.VIETNAMESE) }
@@ -84,7 +86,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         bindLayoutManager(isGrid = true)    // Start in Grid layout
 
         // Switch: Grid/List
-        switchLayout.setOnCheckedChangedListener { _: CompoundButton, _: Boolean ->
+        switchLayout.setOnCheckedChangeListener { _: CompoundButton, _: Boolean ->
             vm.toggleLayout()   // State drives the actual binding below
         }
 
@@ -112,11 +114,57 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                         adapter.submitList(list)
                     }
                 }
+
+                // Selected category -> reflect on button checked states
+                launch {
+                    vm.selectedCategory.collect { cat ->
+                        updateButtonChecks(cat)
+                    }
+                }
             }
         }
     }
 
-    // Helper to switch between GridLayoutManager and LinearLayoutManager
+    // Toggle a category; ensures single selection and updates ViewModel
+    private fun selectCategory(cat: Category?) {
+        vm.setCategory(cat)
+        updateButtonChecks(cat)     // immediate visual feedback
+    }
+
+    // Keep only the chosen button "checked" (green); others unchecked (blue)
+    private fun updateButtonChecks(cat: Category?) {
+        // Reset all to unchecked first
+        setChecked(btnAll, false)
+        setChecked(btnVietnamese, false)
+        setChecked(btnItalian, false)
+        setChecked(btnJapanese, false)
+        setChecked(btnChinese, false)
+        setChecked(btnThai, false)
+        setChecked(btnIndian, false)
+
+        // Turn on just the active one
+        when (cat) {
+            null -> setChecked(btnAll, true)
+            Category.VIETNAMESE -> setChecked(btnVietnamese, true)
+            Category.ITALIAN -> setChecked(btnItalian, true)
+            Category.JAPANESE -> setChecked(btnJapanese, true)
+            Category.CHINESE -> setChecked(btnChinese, true)
+            Category.THAI -> setChecked(btnThai, true)
+            Category.INDIAN -> setChecked(btnIndian, true)
+        }
+    }
+
+    private fun setChecked(btn: MaterialButton, checked: Boolean) {
+        // isCheckable must be true for state lists to show selected colours
+        if (!btn.isCheckable) btn.isCheckable = true
+        btn.isChecked = checked
+    }
+
+    private fun makeCheckable(vararg buttons: MaterialButton) {
+        buttons.forEach { it.isCheckable = true }
+    }
+
+    // Switch between GridLayoutManager and LinearLayoutManager
     private fun bindLayoutManager(isGrid: Boolean) {
         if (!isGrid) {
             // LinearLayoutManager -> vertical list
