@@ -4,4 +4,12 @@
     <string name="title_catalog">Restaurants in Perth</string>
     <string name="switch_grid">Grid</string>
     <string name="all_categories">All</string>
+
+    <string name="cat_vietnamese">Vietnamese</string>
+    <string name="cat_italian">Italian</string>
+    <string name="cat_japanese">Japanese</string>
+    <string name="cat_chinese">Chinese</string>
+    <string name="cat_thai">Thai</string>
+    <string name="cat_indian">Indian</string>
+
 </resources>
