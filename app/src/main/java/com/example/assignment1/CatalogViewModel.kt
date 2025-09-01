@@ -3,14 +3,17 @@
 *       - (Gird/list mode, selected category, filtered item list).
 *
 *  Date created: 29/08/2025
-*  Last modified: 30/08/2025 */
+*  Last modified: 01/09/2025 */
 
 package com.example.assignment1
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.map
 
 class CatalogViewModel : ViewModel() {
@@ -40,8 +43,11 @@ class CatalogViewModel : ViewModel() {
         combine(_allItems, _selectedCategory) { list, cat ->
             if (cat == null) list   // no category filter -> return all
             else list.filter { it.category == cat } // filter items matching category
-        } as StateFlow<List<CatalogItem>>   // Safe cast for previews/tests
-        // Safe cast: Allows expose it as a StateFlow (UI-friendly)
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Eagerly,
+            initialValue = ItemRepository.items
+        )
 
     // --- Functions called by UI ---
 
