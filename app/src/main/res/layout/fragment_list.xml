@@ -10,7 +10,6 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -70,42 +69,42 @@
                 style="@style/Widget.Catalog.FilterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vietnamese"/>
+                android:text="@string/cat_vietnamese"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnItalian"
                 style="@style/Widget.Catalog.FilterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Italian"/>
+                android:text="@string/cat_italian"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnJapanese"
                 style="@style/Widget.Catalog.FilterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Japanese"/>
+                android:text="@string/cat_japanese"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnChinese"
                 style="@style/Widget.Catalog.FilterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chinese"/>
+                android:text="@string/cat_chinese"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnThai"
                 style="@style/Widget.Catalog.FilterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Thai"/>
+                android:text="@string/cat_thai"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnIndian"
                 style="@style/Widget.Catalog.FilterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Indian"/>
+                android:text="@string/cat_indian"/>
         </LinearLayout>
     </HorizontalScrollView>
 
