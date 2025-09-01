@@ -2,7 +2,7 @@
 *       - Hard-coded list of CatalogItem objects
 *
 *  Date created: 29/08/2025
-*  Last modified: 29/08/2025 */
+*  Last modified: 01/09/2025 */
 
 package com.example.assignment1
 
