@@ -6,7 +6,7 @@
     - (Image on top, text below).
 
     Date created: 29/08/2025
-    Last modified: 29/08/2025
+    Last modified: 30/08/2025
 -->
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,8 +20,8 @@
         android:id="@+id/iv"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:contentDescription="@string/cd_item_image"
         android:scaleType="centerCrop"
+        android:contentDescription="@string/cd_item_image"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,9 +35,9 @@
         android:maxLines="1"
         android:ellipsize="end"
         android:textAppearance="?attr/textAppearanceTitleMedium"
-        android:layout_constraintTop_toBottomOf="@id/iv"
-        android:layout_constraintStart_toStartOf="@id/iv"
-        android:layout_constraintEnd_toEndOf="@id/iv" />
+        app:layout_constraintTop_toBottomOf="@id/iv"
+        app:layout_constraintStart_toStartOf="@id/iv"
+        app:layout_constraintEnd_toEndOf="@id/iv" />
 
     <TextView
         android:id="@+id/tvDesc"
@@ -47,9 +47,9 @@
         android:maxLines="2"
         android:ellipsize="end"
         android:textAppearance="?attr/textAppearanceBodyMedium"
-        android:layout_constraintTop_toBottomOf="@id/tvTitle"
-        android:layout_constraintStart_toStartOf="@id/tvTitle"
-        android:layout_constraintEnd_toEndOf="@id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="@id/tvTitle"
+        app:layout_constraintEnd_toEndOf="@id/tvTitle" />
 
     <TextView
         android:id="@+id/chipCategory"
@@ -59,6 +59,7 @@
         android:background="@drawable/bg_chip_neutral"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
+        android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:textAppearance="?attr/textAppearanceLabelLarge"
         app:layout_constraintTop_toBottomOf="@id/tvDesc"
