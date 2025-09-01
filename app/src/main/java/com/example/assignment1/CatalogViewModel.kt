@@ -1,6 +1,6 @@
 /* Class File: CatalogViewModel.kt
 *       - Manages app state.
-*       - (Gird/list mode, selected category, filtered item list).
+*       - Manages grid/list, category, search query (combines into one filtered list).
 *
 *  Date created: 29/08/2025
 *  Last modified: 01/09/2025 */
