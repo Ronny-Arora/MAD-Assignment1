@@ -16,7 +16,7 @@ object ItemRepository {
             title = "Huong Viet Noodle House",
             description = "Famous for classic Vietnamese noodle dishes and comforting broths.",
             category = Category.VIETNAMESE,
-            imageName = "huong_viet_logo"      // matches the .webp in drawable
+            imageName = "huong_viet_logo"
         ),
         CatalogItem(
             title = "Viet Hoa",
