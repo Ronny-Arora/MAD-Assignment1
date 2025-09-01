@@ -15,33 +15,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Header row: title + Grid/List switch -->
+    <!-- Header row (VERTICAL CONTAINER) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:paddingTop="12dp"
-        android:paddingBottom="8dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:paddingBottom="8dp">
 
-        <TextView
-            android:id="@+id/tvHeader"
-            android:layout_width="0dp"
+        <!-- Row: title & Grid/List switch -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/title_catalog"
-            android:textAppearance="?attr/textAppearanceTitleLarge"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-        <!-- Grid = ON (default), List = OFF -->
-        <com.google.android.material.materialswitch.MaterialSwitch
-            android:id="@+id/switchLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/switch_grid"
-            android:checked="true"/>
+            <TextView
+                android:id="@+id/tvHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_catalog"
+                android:textAppearance="?attr/textAppearanceTitleLarge"/>
 
+            <!-- Grid = ON (default), List = OFF -->
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switchLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/switch_grid"
+                android:checked="true"/>
+
+        </LinearLayout>
+
+        <!-- Search field: under the row -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilSearch"
             style="@style/Widget.Material3.TextInputLayout.FilledBox"
