@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    styles.xml
+        - The custom style
+
+    Date created: 30/08/2025
+    Last modified: 31/08/2025
+-->
+
+<resources>
+    <style name="Widget.Catalog.FilterButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="cornerRadius">24dp</item>
+        <item name="backgroundTint">@color/filter_button_bg</item>
+        <item name="android:textColor">@color/filter_button_text</item>
+        <item name="android:insetTop">4dp</item>
+        <item name="android:insetBottom">4dp</item>
+        <item name="android:insetLeft">8dp</item>
+        <item name="android:insetRight">8dp</item>
+    </style>
+</resources>
