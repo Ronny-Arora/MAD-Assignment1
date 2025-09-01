@@ -1,6 +1,7 @@
 /* Class File: ListFragment.kt
 *       - UI screen that shows catalog list, MaterialButtons for categories,
 *       - and the toggle between grid and list.
+*       - Opens DetailFragment when a list item is chosen.
 *
 *  Date created: 30/08/2025
 *  Last modified: 30/08/2025 */
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.materialswitch.MaterialSwitch
 import kotlinx.coroutines.launch
+import androidx.core.widget.addTextChangedListener
 
 // Fragment that shows the catalog list, category chips, and the grid/list toggle
 class ListFragment : Fragment(R.layout.fragment_list) {
@@ -44,11 +46,13 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     private lateinit var btnThai: MaterialButton
     private lateinit var btnIndian: MaterialButton
 
-    // RecyclerView adapter (shows catalog items)
+    // Navigation to detail
     private val adapter = CatalogAdapter(
         onItemClick = { item ->
-            // Show a Toast when clicked
-            Toast.makeText(requireContext(), item.title, Toast.LENGTH_SHORT).show()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.container, DetailFragment.newInstance(item))
+                .addToBackStack("detail")
+                .commit()
         },
         isGridInitial = true    // Default mode is Grid
     )
@@ -60,7 +64,13 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         rv = view.findViewById(R.id.rv)
         switchLayout = view.findViewById(R.id.switchLayout)
 
-        // find Buttons
+        // Find search box
+        val etSearch = view.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etSearch)
+        etSearch.addTextChangedListener { text ->
+            vm.setQuery(text?.toString().orEmpty())
+        }
+
+        // find category Buttons
         btnAll = view.findViewById(R.id.btnAll)
         btnVietnamese = view.findViewById(R.id.btnVietnamese)
         btnItalian = view.findViewById(R.id.btnItalian)
@@ -72,7 +82,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         // Make buttons toggleable to show a "selected" state
         makeCheckable(btnAll, btnVietnamese, btnIndian, btnJapanese, btnChinese, btnThai, btnIndian)
 
-        // Hook up button clicks to update ViewModel filter
+        // Button click listeners
         btnAll.setOnClickListener { vm.setCategory(null) }
         btnVietnamese.setOnClickListener { vm.setCategory(Category.VIETNAMESE) }
         btnItalian.setOnClickListener { vm.setCategory(Category.ITALIAN) }
@@ -81,7 +91,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         btnThai.setOnClickListener { vm.setCategory(Category.THAI) }
         btnIndian.setOnClickListener { vm.setCategory(Category.INDIAN) }
 
-        // Set up RecyclerView
+        // Set up RecyclerView & switchLayout setup
         rv.adapter = adapter
         bindLayoutManager(isGrid = true)    // Start in Grid layout
 
