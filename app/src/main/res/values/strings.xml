@@ -12,4 +12,5 @@
     <string name="cat_thai">Thai</string>
     <string name="cat_indian">Indian</string>
 
+    <string name="search_hint">Search restaurants...</string>
 </resources>
