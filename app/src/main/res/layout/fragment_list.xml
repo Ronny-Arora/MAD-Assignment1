@@ -6,7 +6,7 @@
     - Header with toggle, horizontal row of styled MaterialButtons, and RecyclerView.
 
     Date created: 30/08/2025
-    Last modified: 30/08/2025
+    Last modified: 01/09/2025
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -40,6 +40,22 @@
             android:layout_height="wrap_content"
             android:text="@string/switch_grid"
             android:checked="true"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilSearch"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="@string/search_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:singleLine="true"/>
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <!-- Category buttons (styled MaterialButtons) -->
