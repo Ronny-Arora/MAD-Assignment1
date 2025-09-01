@@ -30,6 +30,9 @@ class CatalogViewModel : ViewModel() {
     private val _selectedCategory = MutableStateFlow<Category?>(null)   // No filter = show all
     val selectedCategory: StateFlow<Category?> = _selectedCategory
 
+    private val _query = MutableStateFlow("")
+    val query: StateFlow<String> = _query
+
     // --- Source Data (Local in-memory list) ---
 
     // All catalog items (hard-coded in ItemRepository)
@@ -37,16 +40,19 @@ class CatalogViewModel : ViewModel() {
 
     // --- Apply exposed filtered list ---
 
-    // Combine items list with selected category.
-    // Every time either changes, UI gets an updated filtered list.
+    // Filter by category then by text
     val items: StateFlow<List<CatalogItem>> =
-        combine(_allItems, _selectedCategory) { list, cat ->
-            if (cat == null) list   // no category filter -> return all
-            else list.filter { it.category == cat } // filter items matching category
+        combine(_allItems, _selectedCategory, _query) { list, cat, q ->
+            val base = if (cat == null) list else list.filter { it.category == cat }
+            val needle = q.trim().lowercase()
+            if (needle.isEmpty()) base
+            else base.filter {
+                it.title.lowercase().contains(needle) || it.description.lowercase().contains(needle)
+            }
         }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Eagerly,
-            initialValue = ItemRepository.items
+            viewModelScope,
+            SharingStarted.Eagerly,
+            ItemRepository.items
         )
 
     // --- Functions called by UI ---
@@ -59,5 +65,9 @@ class CatalogViewModel : ViewModel() {
     // Update currently selected category (or reset with null).
     fun setCategory(cat: Category?) {
         _selectedCategory.value = cat
+    }
+
+    fun setQuery(q: String) {
+        _query.value = q
     }
 }
