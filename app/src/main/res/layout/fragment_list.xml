@@ -4,6 +4,7 @@
     fragment_list.xml
     - Layout for the list screen:
     - Header with toggle, horizontal row of styled MaterialButtons, and RecyclerView.
+    - Includes a search bar at top of list so users can type to filter restaurants.
 
     Date created: 30/08/2025
     Last modified: 01/09/2025
