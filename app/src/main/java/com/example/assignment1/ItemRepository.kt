@@ -32,7 +32,7 @@ object ItemRepository {
         ),
         CatalogItem(
             title = "Pho Nguyen",
-            description = "Pride of Nguyen family's son beinging the quintessential broth that has been perfected for more than 30 years.",
+            description = "Pride of Nguyen family's son being the quintessential broth that has been perfected for more than 30 years.",
             category = Category.VIETNAMESE,
             imageName = "phonguyen_logo"
         ),
@@ -48,7 +48,7 @@ object ItemRepository {
             title = "La Sosta",
             description = "Fremantle stopover for generous handmade pasta, irresistible desserts, and an extensive wine list.",
             category = Category.ITALIAN,
-            imageName = "la_sosta_logo"
+            imageName = "lasosta_logo"
         ),
         CatalogItem(
             title = "Bistro Bellavista",
@@ -156,13 +156,13 @@ object ItemRepository {
             title = "Pearl River Restaurant",
             description = "Pearl River Restaurant specialises on Dim-Sum and Cantonese Cuisine where you will be impressed with their culinary art and experience.",
             category = Category.CHINESE,
-            imageName = "pearriver_logo"
+            imageName = "pearlriver_logo"
         ),
         CatalogItem(
             title = "Pearl on the Point",
             description = "Where authentic dim sum delight awaits at a premier destination for exquisite dim sum dining celebrating the rich flavours and traditions of Chinese cuisine.",
             category = Category.CHINESE,
-            imageName = "pearotp_logo"
+            imageName = "pearlotp_logo"
         ),
         CatalogItem(
             title = "Grand Orient Restaurant",
