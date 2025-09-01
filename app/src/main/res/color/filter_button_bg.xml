@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    filter_button_bg.xml
+        - The color states list
+
+    Date created: 30/08/2025
+    Last modified: 30/08/2025
+-->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Selected / pressed -> green -->
+    <item android:state_checked="true" android:color="#2E7D32"/>
+    <item android:state_pressed="true" android:color="#2E7D32"/>
+
+    <!-- Default -> light blue -->
+    <item android:color="#E3F2FD"/>
+</selector>
