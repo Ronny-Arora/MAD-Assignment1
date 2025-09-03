@@ -12,5 +12,13 @@
     <string name="cat_thai">Thai</string>
     <string name="cat_indian">Indian</string>
 
+    <!-- Favourites & detail actions -->
+    <string name="filter_favourites">Favourites</string>
+    <string name="cd_favourite">Toggle favourite</string>
+    <string name="action_close">Close</string>
+    <string name="action_add_favourite">Add to Favourites</string>
+    <string name="action_remove_favourite">Remove Favourite</string>
+    <string name="action_open_maps">Open in Maps</string>
+
     <string name="search_hint">Search restaurants...</string>
 </resources>

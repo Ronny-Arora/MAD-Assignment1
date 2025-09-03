@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.DiffUtil
@@ -19,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class CatalogAdapter(
     private val onItemClick: (CatalogItem) -> Unit,
+    private val isFavourite: (CatalogItem) -> Boolean,
+    private val onToggleFavourite: (CatalogItem) -> Unit,
     isGridInitial: Boolean = true
 ) : ListAdapter<CatalogItem, CatalogAdapter.VH>(DIFF) {
 
@@ -34,32 +37,48 @@ class CatalogAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, @LayoutRes viewType: Int): VH {
         val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
-        return VH(view, onItemClick)
+        return VH(view, onItemClick, isFavourite, onToggleFavourite)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) = holder.bind(getItem(position))
 
-    class VH(itemView: View, private val onClick: (CatalogItem) -> Unit) :
-            RecyclerView.ViewHolder(itemView) {
+    class VH(
+        itemView: View,
+        private val onClick: (CatalogItem) -> Unit,
+        private val isFav: (CatalogItem) -> Boolean,
+        private val onToggleFav: (CatalogItem) -> Unit
+    ) : RecyclerView.ViewHolder(itemView) {
             private val iv: ImageView = itemView.findViewById(R.id.iv)
             private val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
             private val tvDesc: TextView = itemView.findViewById(R.id.tvDesc)
             private val chip: TextView = itemView.findViewById(R.id.chipCategory)
+            private val btnFav: ImageButton? = itemView.findViewById(R.id.btnFav)
 
-        fun bind(item: CatalogItem) {
-            tvTitle.text = item.title
-            tvDesc.text = item.description
-            chip.text = item.category.displayName
+            fun bind(item: CatalogItem) {
+                tvTitle.text = item.title
+                tvDesc.text = item.description
+                chip.text = item.category.displayName
 
-            // Resolve drawable by name, falls back to placeholder
-            val resId = itemView.resources.getIdentifier(
-                item.imageName,
-                "drawable",
-                itemView.context.packageName
-            )
-            iv.setImageResource(if (resId != 0) resId else R.drawable.placeholder)
+                // Resolve drawable by name, falls back to placeholder
+                val resId = itemView.resources.getIdentifier(
+                    item.imageName,
+                    "drawable",
+                    itemView.context.packageName
+                )
+                iv.setImageResource(if (resId != 0) resId else R.drawable.placeholder)
 
-            itemView.setOnClickListener { onClick(item) }
+                // Row click -> detail
+                itemView.setOnClickListener { onClick(item) }
+
+                // Heart icon -> reflects current fav state, toggles on press
+                btnFav?.apply {
+                    setImageResource(if (isFav(item)) R.drawable.ic_favorite_24 else R.drawable.ic_favorite_border_24)
+                    setOnClickListener {
+                        onToggleFav(item)
+                        //update the icon immediately
+                        setImageResource(if (isFav(item)) R.drawable.ic_favorite_24 else R.drawable.ic_favorite_border_24)
+                    }
+                }
         }
     }
 
