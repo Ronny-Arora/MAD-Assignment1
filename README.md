@@ -6,10 +6,10 @@ Part A: Build a Catalogue App
 # Group Information
 Student IDs: 
     22223850,
-    XXXXXXXX
+    21355176
 Student Names: 
     Amanda Huyen Nguyen,
-    X X X
+    Raunak Arora
 
 # Design Content
 Theme: Restaurants in Perth -

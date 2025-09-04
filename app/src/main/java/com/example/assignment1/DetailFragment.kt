@@ -11,8 +11,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.google.android.material.button.MaterialButton
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import com.google.android.material.button.MaterialButton
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
+
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
 
@@ -32,11 +37,36 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         }
     }
 
+    private val vm: CatalogViewModel by activityViewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val tvTitle = view.findViewById<TextView>(R.id.tvTitle)
         val tvDesc = view.findViewById<TextView>(R.id.tvDesc)
         val btnCategory = view.findViewById<MaterialButton>(R.id.btnCategoryBadge)
         val ivHero = view.findViewById<ImageView>(R.id.ivHero)
+        val btnClose = view.findViewById<MaterialButton>(R.id.btnClose)
+        val btnFavToggle = view.findViewById<MaterialButton>(R.id.btnFavToggle)
+
+        // Safe area: push content below status/cutout and above nav bar
+        val content = view.findViewById<View>(R.id.detailContent)
+        val scroll = view.findViewById<View>(R.id.scroll)
+        val initTop = content.paddingTop
+        val initBottom = content.paddingBottom
+        val initLeft = content.paddingLeft
+        val initRight = content.paddingRight
+        ViewCompat.setOnApplyWindowInsetsListener(view) {_, insets ->
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+            )
+            content.updatePadding(
+                top = initTop + bars.top,
+                bottom = initBottom + bars.bottom,
+                left = initLeft + bars.left,
+                right = initRight+ bars.right
+            )
+            insets
+        }
+        ViewCompat.requestApplyInsets(view)
 
         val title = requireArguments().getString(ARG_TITLE)!!
         val desc = requireArguments().getString(ARG_DESC)!!
@@ -49,5 +79,20 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
         val resId = resources.getIdentifier(imageName, "drawable", requireContext().packageName)
         ivHero.setImageResource(if (resId != 0) resId else R.drawable.placeholder)
+
+        // --- actions
+        btnClose.setOnClickListener { parentFragmentManager.popBackStack() }
+
+        fun refreshFavButton() {
+            val isFav = vm.isFavouriteTitle(title)
+            btnFavToggle.text = if (isFav) getString(R.string.action_remove_favourite)
+                                else getString(R.string.action_add_favourite)
+        }
+        refreshFavButton()
+
+        btnFavToggle.setOnClickListener {
+            vm.toggleFavouriteByTitle(title)
+            refreshFavButton()
+        }
     }
 }

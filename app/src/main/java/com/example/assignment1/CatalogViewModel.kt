@@ -33,6 +33,15 @@ class CatalogViewModel : ViewModel() {
     private val _query = MutableStateFlow("")
     val query: StateFlow<String> = _query
 
+    // Favourites: Store by unique key
+    private val _favourites = MutableStateFlow<Set<String>>(emptySet())
+    val favorites: StateFlow<Set<String>> = _favourites
+
+    //If true, show only favourite items
+    private val _favouritesOnly = MutableStateFlow(false)
+    val favouritesOnly: StateFlow<Boolean> = _favouritesOnly
+
+
     // --- Source Data (Local in-memory list) ---
 
     // All catalog items (hard-coded in ItemRepository)
@@ -42,18 +51,35 @@ class CatalogViewModel : ViewModel() {
 
     // Filter by category then by text
     val items: StateFlow<List<CatalogItem>> =
-        combine(_allItems, _selectedCategory, _query) { list, cat, q ->
-            val base = if (cat == null) list else list.filter { it.category == cat }
+        combine(_allItems, _selectedCategory, _query, _favouritesOnly, _favourites) { list, cat, q, favOnly, fav ->
+            // 1. Category Filter
+            val afterCat = if (cat == null) list else list.filter {it.category == cat }
+
+            // 2. Text Search (title or description)
             val needle = q.trim().lowercase()
-            if (needle.isEmpty()) base
-            else base.filter {
-                it.title.lowercase().contains(needle) || it.description.lowercase().contains(needle)
+            val afterText = if (needle.isEmpty())
+            {
+                afterCat
+            }
+            else
+            {
+                afterCat.filter { it.title.lowercase().contains(needle) || it.description.lowercase().contains(needle) }
+            }
+            // 3. Favorites-only filter
+            if (!favOnly)
+            {
+                afterText
+            }
+            else
+            {
+                afterText.filter {fav.contains(it.title)}
             }
         }.stateIn(
             viewModelScope,
             SharingStarted.Eagerly,
             ItemRepository.items
         )
+    val favourites: StateFlow<Set<String>> = _favourites
 
     // --- Functions called by UI ---
 
@@ -69,5 +95,41 @@ class CatalogViewModel : ViewModel() {
 
     fun setQuery(q: String) {
         _query.value = q
+    }
+
+    fun setFavourites(titles: Set<String>)
+    {
+        _favourites.value = titles
+    }
+    fun setFavouritesOnly(on: Boolean) {
+        _favouritesOnly.value = on
+    }
+
+    fun toggleFavouritesOnly() {
+        _favouritesOnly.value = !_favouritesOnly.value
+    }
+
+    fun isFavourite(item: CatalogItem): Boolean = _favourites.value.contains(item.title)
+    fun isFavouriteTitle(title: String): Boolean = _favourites.value.contains(title)
+
+    fun toggleFavourite(item: CatalogItem){
+        toggleFavouriteByTitle(item.title)
+    }
+
+    fun toggleFavouriteByTitle(title: String){
+        val cur = _favourites.value
+        _favourites.value = if(cur.contains(title))
+        {
+            cur - title
+        }
+        else
+        {
+            cur + title
+        }
+    }
+
+    fun setLayout(isGrid: Boolean)
+    {
+        _isGrid.value = isGrid
     }
 }
