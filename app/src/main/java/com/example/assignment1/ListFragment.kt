@@ -34,6 +34,8 @@ import android.content.Context
 // Fragment that shows the catalog list, category chips, and the grid/list toggle
 class ListFragment : Fragment(R.layout.fragment_list) {
 
+    private var widthListener: View.OnLayoutChangeListener? = null
+
     // ACTIVITY-Scoped VM so favourites & filters are shared with DetailFragments
     private val vm: CatalogViewModel by activityViewModels()
 
@@ -221,6 +223,8 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         if(!isGrid)
         {
             rv.layoutManager = LinearLayoutManager(requireContext())
+            widthListener?.let { rv.removeOnLayoutChangeListener ( it ) }
+            widthListener = null
             return
         }
 
@@ -230,27 +234,17 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         rv.layoutManager = glm
 
         // Recompute span when the RecyclerView's size changes (rotation, split screen, etc)
-        rv.addOnLayoutChangeListener(object: View.OnLayoutChangeListener {
-            override fun onLayoutChange(
-                v: View?,
-                left: Int,
-                top: Int,
-                right: Int,
-                bottom: Int,
-                oldLeft: Int,
-                oldTop: Int,
-                oldRight: Int,
-                oldBottom: Int
-            ) {
-                if (!vm.isGrid.value) return
+        widthListener.let {rv.removeOnLayoutChangeListener ( it )}
+        widthListener = View.OnLayoutChangeListener {_, _, _, _, _, _, _, _, _ ->
+                if (!vm.isGrid.value) return@OnLayoutChangeListener
                 val newSpan = computeSpanByWidthPx(rv.width)
-                val manager = rv.layoutManager as? GridLayoutManager?: return
-                if(newSpan > 0 && manager.spanCount != newSpan)
-                {
+            (rv.layoutManager as? GridLayoutManager)?.let { manager ->
+                if (newSpan > 0 && manager.spanCount != newSpan) {
                     manager.spanCount = newSpan
                 }
             }
-        })
+        }
+        rv.addOnLayoutChangeListener(widthListener)
     }
 
     // Compute columns by actual px width so it adapts in split-screen
