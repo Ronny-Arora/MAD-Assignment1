@@ -12,5 +12,7 @@ data class CatalogItem(
     val description: String,
     val category: Category,
     /** Drawable resource name without the extension, e.g., "huong_viet_image1" */
-    val imageName: String
+    val imageName: String,
+    val lat: Double? = null,
+    val lng: Double? = null
 )

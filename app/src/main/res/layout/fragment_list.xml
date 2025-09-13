@@ -90,6 +90,20 @@
             android:gravity="center_vertical">
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNearMe"
+                style="@style/Widget.Catalog.FilterButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_nearby"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDistance"
+                style="@style/Widget.Catalog.FilterButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter_distance"/>
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnFavourites"
                 style="@style/Widget.Catalog.FilterButton"
                 android:layout_width="wrap_content"

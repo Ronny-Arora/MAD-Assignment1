@@ -12,6 +12,8 @@
     <string name="cat_thai">Thai</string>
     <string name="cat_indian">Indian</string>
 
+    <string name="filter_nearby">Near me</string>
+    <string name="rationale_location">To show places near you, we need your location.</string>
     <!-- Favourites & detail actions -->
     <string name="filter_favourites">Favourites</string>
     <string name="cd_favourite">Toggle favourite</string>
@@ -21,4 +23,17 @@
     <string name="action_open_maps">Open in Maps</string>
 
     <string name="search_hint">Search restaurants...</string>
+    <string name="google_maps_key">AIzaSyCKespCKLa6FVYl1sltuFF5vPOPoKIgLPs</string>
+
+    <string name="distance_unknown">Distance: -</string>
+    <string name="open_in_maps">Open in Maps</string>
+
+    <string name="filter_distance">Distance</string>
+    <string name="distance_sort_nearest">Sort: Closest</string>
+    <string name="distance_sort_furthest">Sort: Furthest</string>
+    <string name="distance_sort_off">Sort: Off</string>
+    <string name="distance_nearby_toggle">Toggle: Within 10 km</string>
+    <string name="distance_refresh_location">Refresh my location</string>
+    <string name="distance_clear_location">Clear location</string>
+
 </resources>

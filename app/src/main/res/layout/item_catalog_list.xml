@@ -64,7 +64,7 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:textAppearance="?attr/textAppearanceLabelLarge"
-        android:background="@drawable/bg_chip_neutral"
+        android:background="@null"
         app:layout_constraintStart_toStartOf="@id/tvDesc"
         app:layout_constraintTop_toBottomOf="@id/tvDesc" />
 

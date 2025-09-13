@@ -53,6 +53,7 @@
             android:focusable="false"
             android:text="Category"/>
 
+
         <!-- Actions: Close + Favourite -->
         <LinearLayout
             android:id="@+id/actionRow"
@@ -75,6 +76,15 @@
                 android:minHeight="48dp"
                 android:layout_marginStart="8dp"
                 android:text="@string/action_add_favourite" />
+
+            <TextView
+                android:id="@+id/tvDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/distance_unknown"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:layout_marginTop="8dp" />
+
         </LinearLayout>
 
         <TextView
@@ -83,5 +93,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:textAppearance="?attr/textAppearanceBodyLarge"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnOpenMaps"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/open_in_maps"
+            android:layout_marginTop="8dp" />
+
     </LinearLayout>
 </ScrollView>
